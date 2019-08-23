@@ -1,5 +1,6 @@
 package com.jingna.aftersalesapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,19 +12,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.jingna.aftersalesapp.R;
+import com.jingna.aftersalesapp.page.SMSLoginActivity;
 import com.jingna.aftersalesapp.util.Logger;
 import com.jingna.aftersalesapp.util.SpUtils;
-import com.jingna.aftersalesapp.util.StatusBarUtils;
-import com.vise.xsnow.http.ViseHttp;
-import com.vise.xsnow.http.callback.ACallback;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2019/8/23.
@@ -95,6 +91,17 @@ public class FragmentMy extends Fragment {
 
     private void initData() {
 
+    }
+
+    @OnClick({R.id.ll_login})
+    public void onClick(View view) {
+        Intent intent = new Intent();
+        switch (view.getId()) {
+            case R.id.ll_login:
+                intent.setClass(getContext(), SMSLoginActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
 }
