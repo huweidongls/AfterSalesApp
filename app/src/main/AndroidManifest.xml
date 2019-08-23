@@ -17,6 +17,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".page.LoginActivity" />
+        <activity android:name=".page.SMSLoginActivity" />
+        <activity android:name=".page.SMSLoginYzmActivity" />
+        <activity android:name=".page.RegisterActivity" />
+        <activity android:name=".page.RegisterYzmActivity" />
+        <activity android:name=".page.RegisterSetPwdActivity" />
+        <activity android:name=".page.ForgotPwd1Activity" />
+        <activity android:name=".page.ForgotPwd2Activity" />
+        <activity android:name=".page.ForgotPwd3Activity"></activity>
     </application>
 
 </manifest>
