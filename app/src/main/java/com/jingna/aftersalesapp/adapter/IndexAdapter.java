@@ -1,6 +1,7 @@
 package com.jingna.aftersalesapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.jingna.aftersalesapp.R;
 import com.jingna.aftersalesapp.bean.IndexBean;
 import com.jingna.aftersalesapp.net.NetUrl;
+import com.jingna.aftersalesapp.page.IndexDetailsActivity;
 import com.jingna.aftersalesapp.util.SpUtils;
 import com.jingna.aftersalesapp.util.ToastUtil;
 import com.vise.xsnow.http.ViseHttp;
@@ -74,6 +76,15 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
 
                             }
                         });
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(context, IndexDetailsActivity.class);
+                intent.putExtra("id", data.get(position).getId());
+                context.startActivity(intent);
             }
         });
     }

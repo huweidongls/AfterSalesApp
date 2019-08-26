@@ -36,4 +36,6 @@ public class NetUrl {
     public static final String AfterSaleOrdergetByRepairIdOrder = "AfterSaleOrder/getByRepairIdOrder";
     //工程师修改订单状态接口
     public static final String AfterSaleOrdergetByOrderRepairId = "AfterSaleOrder/getByOrderRepairId";
+    //根据订单ID查询具体数据
+    public static final String AfterSaleOrdergetOneByOrderId = "AfterSaleOrder/getOneByOrderId";
 }

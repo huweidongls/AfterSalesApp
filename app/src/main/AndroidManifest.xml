@@ -53,7 +53,8 @@
         <activity android:name=".page.MyBankCardActivity" />
         <activity android:name=".page.InsertBankCardActivity" />
         <activity android:name=".page.InsertBankCardSuccessActivity" />
-        <activity android:name=".page.CommissionActivity"></activity>
+        <activity android:name=".page.CommissionActivity" />
+        <activity android:name=".page.IndexDetailsActivity"></activity>
     </application>
 
 </manifest>
