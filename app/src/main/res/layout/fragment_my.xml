@@ -113,7 +113,7 @@
                         android:layout_marginLeft="11dp"
                         android:textColor="#ffffff"
                         android:textSize="15sp"
-                        android:text="地址管理"
+                        android:text="我的银行卡"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -137,7 +137,7 @@
                         android:layout_marginLeft="11dp"
                         android:textColor="#ffffff"
                         android:textSize="15sp"
-                        android:text="我的银行卡"
+                        android:text="修改登录密码"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -161,7 +161,7 @@
                         android:layout_marginLeft="11dp"
                         android:textColor="#ffffff"
                         android:textSize="15sp"
-                        android:text="修改登录密码"
+                        android:text="提维修费"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -185,7 +185,7 @@
                         android:layout_marginLeft="11dp"
                         android:textColor="#ffffff"
                         android:textSize="15sp"
-                        android:text="佣金收益"
+                        android:text="推送消息设置"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -209,7 +209,7 @@
                         android:layout_marginLeft="11dp"
                         android:textColor="#ffffff"
                         android:textSize="15sp"
-                        android:text="团队管理"
+                        android:text="隐私设置"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -233,7 +233,7 @@
                         android:layout_marginLeft="11dp"
                         android:textColor="#ffffff"
                         android:textSize="15sp"
-                        android:text="提佣金"
+                        android:text="功能反馈"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -257,7 +257,7 @@
                         android:layout_marginLeft="11dp"
                         android:textColor="#ffffff"
                         android:textSize="15sp"
-                        android:text="收藏"
+                        android:text="清除本地缓存"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 

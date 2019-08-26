@@ -1,6 +1,7 @@
 package com.jingna.aftersalesapp.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,8 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.jingna.aftersalesapp.R;
 import com.jingna.aftersalesapp.adapter.IndexAdapter;
+import com.jingna.aftersalesapp.bean.IndexBean;
+import com.jingna.aftersalesapp.net.NetUrl;
+import com.scwang.smartrefresh.header.MaterialHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +41,11 @@ public class FragmentIndex extends Fragment {
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout smartRefreshLayout;
 
     private IndexAdapter adapter;
-    private List<String> mList;
+    private List<IndexBean.DataBean> mList;
 
     @Nullable
     @Override
@@ -36,22 +53,88 @@ public class FragmentIndex extends Fragment {
         View view = inflater.inflate(R.layout.fragment_index, null);
 
         ButterKnife.bind(this, view);
-        initData();
+        init();
 
         return view;
     }
 
+    private void init() {
+
+        smartRefreshLayout.setRefreshHeader(new MaterialHeader(getContext()));
+        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
+        smartRefreshLayout.setEnableLoadMore(false);
+        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+                ViseHttp.GET(NetUrl.AfterSaleOrderfindAllUnmaintained)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.optString("status").equals("200")){
+                                        Gson gson = new Gson();
+                                        IndexBean bean = gson.fromJson(data, IndexBean.class);
+                                        mList.clear();
+                                        mList.addAll(bean.getData());
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                    refreshLayout.finishRefresh(500);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                refreshLayout.finishRefresh(500);
+                            }
+                        });
+            }
+        });
+        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishLoadMore(500);
+            }
+        });
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData();
+    }
+
     private void initData() {
 
-        mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        adapter = new IndexAdapter(mList);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
+        ViseHttp.GET(NetUrl.AfterSaleOrderfindAllUnmaintained)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("status").equals("200")){
+                                Gson gson = new Gson();
+                                IndexBean bean = gson.fromJson(data, IndexBean.class);
+                                mList = bean.getData();
+                                adapter = new IndexAdapter(mList);
+                                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                                recyclerView.setLayoutManager(manager);
+                                recyclerView.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 

@@ -5,8 +5,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.jingna.aftersalesapp.R;
+import com.jingna.aftersalesapp.bean.IndexBean;
+import com.jingna.aftersalesapp.net.NetUrl;
+import com.jingna.aftersalesapp.util.SpUtils;
+import com.jingna.aftersalesapp.util.ToastUtil;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -17,9 +27,9 @@ import java.util.List;
 public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<IndexBean.DataBean> data;
 
-    public IndexAdapter(List<String> data) {
+    public IndexAdapter(List<IndexBean.DataBean> data) {
         this.data = data;
     }
 
@@ -32,8 +42,40 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        holder.tvId.setText(data.get(position).getId());
+        holder.tvAddress.setText(data.get(position).getAddresName());
+        holder.tvPhone.setText(data.get(position).getAddresPhone());
+        holder.tvName.setText(data.get(position).getDeviceName());
+        holder.tvJieshou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViseHttp.GET(NetUrl.AfterSaleOrdergetByOrderRepairId)
+                        .addParam("repairId", SpUtils.getUserId(context))
+                        .addParam("orderId", data.get(position).getId())
+                        .addParam("orderStatus", "2")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String d) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(d);
+                                    if(jsonObject.optString("status").equals("200")){
+                                        ToastUtil.showShort(context, "接单成功");
+                                        data.remove(position);
+                                        notifyDataSetChanged();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
 
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+            }
+        });
     }
 
     @Override
@@ -43,8 +85,19 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
+        private TextView tvId;
+        private TextView tvAddress;
+        private TextView tvPhone;
+        private TextView tvName;
+        private TextView tvJieshou;
+
         public ViewHolder(View itemView) {
             super(itemView);
+            tvId = itemView.findViewById(R.id.tv_id);
+            tvAddress = itemView.findViewById(R.id.tv_address);
+            tvPhone = itemView.findViewById(R.id.tv_phone);
+            tvName = itemView.findViewById(R.id.tv_name);
+            tvJieshou = itemView.findViewById(R.id.tv_jieshou);
         }
     }
 

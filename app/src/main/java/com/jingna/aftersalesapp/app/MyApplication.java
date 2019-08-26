@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.jingna.aftersalesapp.net.NetUrl;
+import com.jingna.aftersalesapp.util.BankCodeTimeCount;
 import com.jingna.aftersalesapp.util.FTPTimeCount;
 import com.jingna.aftersalesapp.util.ForgotTimeCount;
 import com.jingna.aftersalesapp.util.SMSCodeTimeCount;
@@ -24,6 +25,7 @@ public class MyApplication extends Application {
     public static SMSCodeTimeCount smsCodeTimeCount;
     public static FTPTimeCount ftptimecount;
     public static ForgotTimeCount forgotTimeCount;
+    public static BankCodeTimeCount bankCodeTimeCount;
 
     public MyApplication() {
     }
@@ -36,6 +38,7 @@ public class MyApplication extends Application {
         smsCodeTimeCount = new SMSCodeTimeCount(60000, 1000);
         ftptimecount = new FTPTimeCount(60000, 1000);
         forgotTimeCount = new ForgotTimeCount(60000, 1000);
+        bankCodeTimeCount = new BankCodeTimeCount(60000, 1000);
     }
 
     public synchronized static MyApplication getInstance() {

@@ -22,6 +22,7 @@
                 android:layout_height="17dp" />
 
             <TextView
+                android:id="@+id/tv_id"
                 android:layout_gravity="center_vertical"
                 android:ellipsize="end"
                 android:lines="1"
@@ -49,6 +50,7 @@
                 android:layout_height="17dp" />
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_gravity="center_vertical"
                 android:ellipsize="end"
                 android:lines="1"
@@ -76,6 +78,7 @@
                 android:layout_height="17dp" />
 
             <TextView
+                android:id="@+id/tv_address"
                 android:layout_gravity="center_vertical"
                 android:ellipsize="end"
                 android:lines="1"
@@ -103,6 +106,7 @@
                 android:layout_height="17dp" />
 
             <TextView
+                android:id="@+id/tv_phone"
                 android:layout_gravity="center_vertical"
                 android:ellipsize="end"
                 android:lines="1"
@@ -132,16 +136,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_marginRight="15dp"
-                android:background="#BEBEBE"
-                android:gravity="center"
-                android:textSize="13sp"
-                android:textColor="@color/white_ffffff"
-                android:text="拒绝"
-                android:layout_width="92dp"
-                android:layout_height="30dp" />
-
-            <TextView
+                android:id="@+id/tv_jieshou"
                 android:layout_marginRight="15dp"
                 android:background="#02C160"
                 android:gravity="center"

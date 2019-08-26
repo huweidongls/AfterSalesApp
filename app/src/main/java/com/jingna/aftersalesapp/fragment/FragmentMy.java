@@ -16,6 +16,10 @@ import com.google.gson.Gson;
 import com.jingna.aftersalesapp.R;
 import com.jingna.aftersalesapp.bean.GetOneBean;
 import com.jingna.aftersalesapp.net.NetUrl;
+import com.jingna.aftersalesapp.page.CommissionActivity;
+import com.jingna.aftersalesapp.page.ForgotPwd1Activity;
+import com.jingna.aftersalesapp.page.MyBankCardActivity;
+import com.jingna.aftersalesapp.page.PersonInformationActivity;
 import com.jingna.aftersalesapp.page.SMSLoginActivity;
 import com.jingna.aftersalesapp.util.Logger;
 import com.jingna.aftersalesapp.util.SpUtils;
@@ -81,8 +85,8 @@ public class FragmentMy extends Fragment {
                                 if(jsonObject.optString("status").equals("200")){
                                     Gson gson = new Gson();
                                     GetOneBean bean = gson.fromJson(data, GetOneBean.class);
-                                    Glide.with(getContext()).load(NetUrl.BASE_URL+bean.getData().getMemberUserInfo().getHeadPhoto()).into(ivAvatar);
-                                    tvName.setText(bean.getData().getMemberUserInfo().getMemName());
+                                    Glide.with(getContext()).load(NetUrl.BASE_URL+bean.getData().getHeadPhoto()).into(ivAvatar);
+                                    tvName.setText(bean.getData().getMemName());
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -101,13 +105,59 @@ public class FragmentMy extends Fragment {
 
     }
 
-    @OnClick({R.id.ll_login})
+    @OnClick({R.id.ll_login, R.id.iv_avatar, R.id.tv_edit, R.id.rl1, R.id.rl2, R.id.rl3})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.ll_login:
                 intent.setClass(getContext(), SMSLoginActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.iv_avatar:
+                if (userId.equals("0")) {
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), PersonInformationActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.tv_edit:
+                if (userId.equals("0")) {
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), PersonInformationActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.rl1:
+                if (userId.equals("0")) {
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), MyBankCardActivity.class);
+                    intent.putExtra("type", "my");
+                    startActivity(intent);
+                }
+                break;
+            case R.id.rl2:
+                if (userId.equals("0")) {
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), ForgotPwd1Activity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.rl3:
+                if (userId.equals("0")) {
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), CommissionActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }
