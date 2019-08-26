@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.jingna.aftersalesapp.R;
 import com.jingna.aftersalesapp.base.BaseActivity;
+import com.jingna.aftersalesapp.net.NetUrl;
 import com.jingna.aftersalesapp.util.StatusBarUtils;
 import com.jingna.aftersalesapp.util.ToastUtil;
 import com.vise.xsnow.http.ViseHttp;
@@ -52,8 +53,8 @@ public class ForgotPwd1Activity extends BaseActivity {
     private void next() {
 
         final String phoneNum = etPhoneNum.getText().toString();
-        String url = "/MemUser/sendMessage?phone="+phoneNum;
-        ViseHttp.GET(url)
+        ViseHttp.GET(NetUrl.MemUsersendMessage)
+                .addParam("phone", phoneNum)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {

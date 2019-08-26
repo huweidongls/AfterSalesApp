@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.jingna.aftersalesapp.R;
 import com.jingna.aftersalesapp.base.BaseActivity;
+import com.jingna.aftersalesapp.net.NetUrl;
 import com.jingna.aftersalesapp.util.StatusBarUtils;
 import com.jingna.aftersalesapp.util.ToastUtil;
 import com.vise.xsnow.http.ViseHttp;
@@ -84,8 +85,7 @@ public class ForgotPwd3Activity extends BaseActivity {
         }else if(pwd.length()<6||pwd.length()>20){
             ToastUtil.showShort(context, "密码长度为6-20位，请重新设置密码");
         }else {
-            String url = "/MemUser/retrievePassword";
-            ViseHttp.POST(url)
+            ViseHttp.POST(NetUrl.EngineerUserretrievePassword)
                     .addParam("phone", phoneNumber)
                     .addParam("newPassword", pwd)
                     .request(new ACallback<String>() {

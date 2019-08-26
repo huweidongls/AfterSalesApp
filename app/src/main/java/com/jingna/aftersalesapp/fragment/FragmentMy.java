@@ -12,10 +12,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.jingna.aftersalesapp.R;
+import com.jingna.aftersalesapp.bean.GetOneBean;
+import com.jingna.aftersalesapp.net.NetUrl;
 import com.jingna.aftersalesapp.page.SMSLoginActivity;
 import com.jingna.aftersalesapp.util.Logger;
 import com.jingna.aftersalesapp.util.SpUtils;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,30 +70,30 @@ public class FragmentMy extends Fragment {
         } else {
             llName.setVisibility(View.VISIBLE);
             llLogin.setVisibility(View.GONE);
-            String url = "/MemUser/getOne?id="+userId;
-//            ViseHttp.GET(url)
-//                    .request(new ACallback<String>() {
-//                        @Override
-//                        public void onSuccess(String data) {
-//                            try {
-//                                Logger.e("123123", data);
-//                                JSONObject jsonObject = new JSONObject(data);
-//                                if(jsonObject.optString("status").equals("200")){
-//                                    Gson gson = new Gson();
-//                                    GetOneBean bean = gson.fromJson(data, GetOneBean.class);
-//                                    Glide.with(getContext()).load(NetUrl.BASE_URL+bean.getData().getMemberUserInfo().getHeadPhoto()).into(ivAvatar);
-//                                    tvName.setText(bean.getData().getMemberUserInfo().getMemName());
-//                                }
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onFail(int errCode, String errMsg) {
-//
-//                        }
-//                    });
+            ViseHttp.GET(NetUrl.EngineerUsergetOne)
+                    .addParam("id", userId)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                Logger.e("123123", data);
+                                JSONObject jsonObject = new JSONObject(data);
+                                if(jsonObject.optString("status").equals("200")){
+                                    Gson gson = new Gson();
+                                    GetOneBean bean = gson.fromJson(data, GetOneBean.class);
+                                    Glide.with(getContext()).load(NetUrl.BASE_URL+bean.getData().getMemberUserInfo().getHeadPhoto()).into(ivAvatar);
+                                    tvName.setText(bean.getData().getMemberUserInfo().getMemName());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
         }
     }
 
