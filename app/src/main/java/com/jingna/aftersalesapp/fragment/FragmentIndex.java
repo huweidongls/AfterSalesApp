@@ -15,6 +15,8 @@ import com.jingna.aftersalesapp.R;
 import com.jingna.aftersalesapp.adapter.IndexAdapter;
 import com.jingna.aftersalesapp.bean.IndexBean;
 import com.jingna.aftersalesapp.net.NetUrl;
+import com.jingna.aftersalesapp.page.StartWeixiuActivity;
+import com.jingna.aftersalesapp.util.StatusBarUtils;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -104,6 +106,7 @@ public class FragmentIndex extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        StatusBarUtils.setStatusBar(getActivity(), getResources().getColor(R.color.statusbar_color));
         initData();
     }
 

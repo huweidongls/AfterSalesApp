@@ -130,12 +130,26 @@
 
         <LinearLayout
             android:layout_marginTop="20dp"
-            android:gravity="end"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_status"
+                android:ellipsize="end"
+                android:lines="1"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:textColor="@color/white_ffffff"
+                android:text="维修状态：准备维修"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv"
                 android:layout_marginRight="15dp"
                 android:background="#02C160"
                 android:gravity="center"

@@ -16,6 +16,7 @@ import com.jingna.aftersalesapp.adapter.OrderAdapter;
 import com.jingna.aftersalesapp.bean.OrderBean;
 import com.jingna.aftersalesapp.net.NetUrl;
 import com.jingna.aftersalesapp.util.SpUtils;
+import com.jingna.aftersalesapp.util.StatusBarUtils;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -100,6 +101,7 @@ public class FragmentOrder extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        StatusBarUtils.setStatusBar(getActivity(), getResources().getColor(R.color.statusbar_color));
         initData();
     }
 

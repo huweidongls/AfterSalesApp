@@ -23,6 +23,7 @@ import com.jingna.aftersalesapp.page.PersonInformationActivity;
 import com.jingna.aftersalesapp.page.SMSLoginActivity;
 import com.jingna.aftersalesapp.util.Logger;
 import com.jingna.aftersalesapp.util.SpUtils;
+import com.jingna.aftersalesapp.util.StatusBarUtils;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -65,6 +66,7 @@ public class FragmentMy extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        StatusBarUtils.setStatusBar(getActivity(), getResources().getColor(R.color.statusbar_color));
         Logger.e("123123", userId);
         userId = SpUtils.getUserId(getContext());
         if (userId.equals("0")) {
