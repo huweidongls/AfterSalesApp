@@ -50,8 +50,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         final String status = data.get(position).getOrderStatus();
         if(status.equals("0")){
             holder.tvStatus.setText("维修状态：订单已取消");
-            holder.tv.setVisibility(View.GONE);
-            holder.tv.setText("");
+            holder.tv.setVisibility(View.VISIBLE);
+            holder.tv.setText("删除订单");
         }else if(status.equals("2")){
             holder.tvStatus.setText("维修状态：已接单");
             holder.tv.setVisibility(View.VISIBLE);
@@ -65,15 +65,47 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             holder.tv.setVisibility(View.VISIBLE);
             holder.tv.setText("提交订单");
         }else if(status.equals("5")){
-            holder.tvStatus.setText("维修状态：客户已支付");
+            holder.tvStatus.setText("维修状态：已提交价格");
             holder.tv.setVisibility(View.GONE);
             holder.tv.setText("");
+        }else if(status.equals("6")){
+            holder.tvStatus.setText("维修状态：客户已支付");
+            holder.tv.setVisibility(View.VISIBLE);
+            holder.tv.setText("删除订单");
         }
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(status.equals("0")){
+                    //删除订单
+                    DialogCustom dialogCustom = new DialogCustom(context, "是否删除订单", new DialogCustom.OnYesListener() {
+                        @Override
+                        public void onYes() {
+                            ViseHttp.GET(NetUrl.AfterSaleOrdertoDeleteRepairOrder)
+                                    .addParam("orderId", data.get(position).getId())
+                                    .request(new ACallback<String>() {
+                                        @Override
+                                        public void onSuccess(String d) {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(d);
+                                                if(jsonObject.optString("status").equals("200")){
+                                                    ToastUtil.showShort(context, "删除成功");
+                                                    data.remove(position);
+                                                    notifyDataSetChanged();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
 
+                                        @Override
+                                        public void onFail(int errCode, String errMsg) {
+
+                                        }
+                                    });
+                        }
+                    });
+                    dialogCustom.show();
                 }else if(status.equals("2")){
                     //开始维修
                     DialogCustom dialogCustom = new DialogCustom(context, "是否开始维修", new DialogCustom.OnYesListener() {
@@ -140,11 +172,40 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                     Intent intent = new Intent();
                     intent.setClass(context, StartWeixiuActivity.class);
                     intent.putExtra("id", data.get(position).getId());
+                    intent.putExtra("name", data.get(position).getAddresUname());
+                    intent.putExtra("phone", data.get(position).getAddresPhone());
+                    intent.putExtra("address", data.get(position).getAddresName());
                     context.startActivity(intent);
-                }else if(status.equals("5")){
-//                    holder.tvStatus.setText("维修状态：客户已支付");
-//                    holder.tv.setVisibility(View.GONE);
-//                    holder.tv.setText("");
+                }else if(status.equals("6")){
+                    //删除订单
+                    DialogCustom dialogCustom = new DialogCustom(context, "是否删除订单", new DialogCustom.OnYesListener() {
+                        @Override
+                        public void onYes() {
+                            ViseHttp.GET(NetUrl.AfterSaleOrdertoDeleteRepairOrder)
+                                    .addParam("orderId", data.get(position).getId())
+                                    .request(new ACallback<String>() {
+                                        @Override
+                                        public void onSuccess(String d) {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(d);
+                                                if(jsonObject.optString("status").equals("200")){
+                                                    ToastUtil.showShort(context, "删除成功");
+                                                    data.remove(position);
+                                                    notifyDataSetChanged();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFail(int errCode, String errMsg) {
+
+                                        }
+                                    });
+                        }
+                    });
+                    dialogCustom.show();
                 }
             }
         });

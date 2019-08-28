@@ -43,7 +43,7 @@ public class PeitaoshebeiBean implements Serializable {
 
         private int id;
         private String name;
-        private int dayMoney;
+        private int money;
         private String company;
         private int isSelect = 0;
         private int num = 1;
@@ -81,11 +81,11 @@ public class PeitaoshebeiBean implements Serializable {
         }
 
         public int getDayMoney() {
-            return dayMoney;
+            return money;
         }
 
-        public void setDayMoney(int dayMoney) {
-            this.dayMoney = dayMoney;
+        public void setDayMoney(int money) {
+            this.money = money;
         }
 
         public String getCompany() {

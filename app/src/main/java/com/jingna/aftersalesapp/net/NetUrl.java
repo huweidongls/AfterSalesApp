@@ -40,4 +40,10 @@ public class NetUrl {
     public static final String AfterSaleOrdergetOneByOrderId = "AfterSaleOrder/getOneByOrderId";
     //查询所有维修内容
     public static final String AppAfterSaleContentqueryList = "AppAfterSaleContent/queryList";
+    //根据工时计算工时费
+    public static final String AfterSaleOrdergetByTimeOrMoney = "AfterSaleOrder/getByTimeOrMoney";
+    //售后完成订单填写
+    public static final String AfterSaleOrdergetByOrderInsert = "AfterSaleOrder/getByOrderInsert";
+    //删除订单
+    public static final String AfterSaleOrdertoDeleteRepairOrder = "AfterSaleOrder/toDeleteRepairOrder";
 }

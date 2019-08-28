@@ -15,6 +15,8 @@ import com.jingna.aftersalesapp.adapter.OrderShebeiAdapter;
 import com.jingna.aftersalesapp.base.BaseActivity;
 import com.jingna.aftersalesapp.bean.PeitaoshebeiBean;
 import com.jingna.aftersalesapp.util.StatusBarUtils;
+import com.jingna.aftersalesapp.util.StringUtils;
+import com.jingna.aftersalesapp.util.ToastUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -49,11 +51,20 @@ public class StartWeixiuActivity extends BaseActivity {
     private List<PeitaoshebeiBean.DataBean> beanList;
     private String type = "0";
 
+    private String id = "";
+    private String name = "";
+    private String phone = "";
+    private String address = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_weixiu);
 
+        id = getIntent().getStringExtra("id");
+        name = getIntent().getStringExtra("name");
+        phone = getIntent().getStringExtra("phone");
+        address = getIntent().getStringExtra("address");
         StatusBarUtils.setStatusBar(StartWeixiuActivity.this, getResources().getColor(R.color.white_ffffff));
         ButterKnife.bind(StartWeixiuActivity.this);
         initData();
@@ -102,8 +113,26 @@ public class StartWeixiuActivity extends BaseActivity {
                 etJiaotong.setText(null);
                 break;
             case R.id.tv_sure:
-                intent.setClass(context, CommitActivity.class);
-                startActivity(intent);
+                String content = etContent.getText().toString();
+                String price = etPrice.getText().toString();
+                String time = etTime.getText().toString();
+                String jiaotong = etJiaotong.getText().toString();
+                if(StringUtils.isEmpty(content)||StringUtils.isEmpty(price)||StringUtils.isEmpty(time)||StringUtils.isEmpty(jiaotong)){
+                    ToastUtil.showShort(context, "请完善信息后提交");
+                }else {
+                    intent.setClass(context, CommitActivity.class);
+                    intent.putExtra("id", id);
+                    intent.putExtra("name", name);
+                    intent.putExtra("phone", phone);
+                    intent.putExtra("address", address);
+                    intent.putExtra("list", (Serializable) mList);
+                    intent.putExtra("content", content);
+                    intent.putExtra("price", price);
+                    intent.putExtra("time", time);
+                    intent.putExtra("jiaotong", jiaotong);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
         }
     }

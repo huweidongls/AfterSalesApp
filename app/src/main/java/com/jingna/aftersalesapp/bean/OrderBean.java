@@ -51,6 +51,15 @@ public class OrderBean {
         private String orderStatus;
         private List<AppAfterSaleEquipmentsBean> appAfterSaleEquipments;
         private String deviceName;
+        private String addresUname;
+
+        public String getAddresUname() {
+            return addresUname;
+        }
+
+        public void setAddresUname(String addresUname) {
+            this.addresUname = addresUname;
+        }
 
         public String getDeviceName() {
             return deviceName;
