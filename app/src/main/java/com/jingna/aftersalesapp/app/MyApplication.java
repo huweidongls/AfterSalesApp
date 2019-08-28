@@ -13,6 +13,8 @@ import com.vise.xsnow.http.ViseHttp;
 import java.util.LinkedList;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by Administrator on 2019/8/23.
  */
@@ -35,6 +37,8 @@ public class MyApplication extends Application {
         super.onCreate();
         ViseHttp.init(this);
         ViseHttp.CONFIG().baseUrl(NetUrl.BASE_URL);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         smsCodeTimeCount = new SMSCodeTimeCount(60000, 1000);
         ftptimecount = new FTPTimeCount(60000, 1000);
         forgotTimeCount = new ForgotTimeCount(60000, 1000);

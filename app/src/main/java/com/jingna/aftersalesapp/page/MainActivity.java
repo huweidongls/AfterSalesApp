@@ -1,5 +1,6 @@
 package com.jingna.aftersalesapp.page;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -7,7 +8,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +20,8 @@ import com.jingna.aftersalesapp.app.MyApplication;
 import com.jingna.aftersalesapp.fragment.FragmentIndex;
 import com.jingna.aftersalesapp.fragment.FragmentMy;
 import com.jingna.aftersalesapp.fragment.FragmentOrder;
+import com.jingna.aftersalesapp.receiver.TagAliasOperatorHelper;
+import com.jingna.aftersalesapp.util.SpUtils;
 import com.jingna.aftersalesapp.util.StatusBarUtils;
 import com.jingna.aftersalesapp.util.ToastUtil;
 
@@ -29,6 +34,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     private Context context = MainActivity.this;
+    private static final int TAG = 1010;
 
     @BindView(R.id.menu_index)
     ImageButton ibIndex;
@@ -57,6 +63,16 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+    public static boolean isForeground = false;
+
+    //for receive customer msg from jpush server
+    private MessageReceiver mMessageReceiver;
+    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_EXTRAS = "extras";
+    private EditText msgText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(MainActivity.this);
         MyApplication.getInstance().addActivity(this);
         init();
+
+        TagAliasOperatorHelper.TagAliasBean tagAliasBean = new TagAliasOperatorHelper.TagAliasBean();
+        tagAliasBean.isAliasAction = true;
+        tagAliasBean.action = TagAliasOperatorHelper.ACTION_SET;
+        tagAliasBean.alias = "j_"+ SpUtils.getUserId(context);//别名
+        TagAliasOperatorHelper.getInstance().handleAction(context, TAG, tagAliasBean);
 
     }
 
@@ -194,6 +216,33 @@ public class MainActivity extends AppCompatActivity {
         } else {
             MyApplication.getInstance().exit();
             exitTime = 0;
+        }
+    }
+
+    public class MessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+                    String messge = intent.getStringExtra(KEY_MESSAGE);
+                    String extras = intent.getStringExtra(KEY_EXTRAS);
+                    StringBuilder showMsg = new StringBuilder();
+                    showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+                    if (!TextUtils.isEmpty(extras)) {
+                        showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
+                    }
+                    setCostomMsg(showMsg.toString());
+                }
+            } catch (Exception e){
+            }
+        }
+    }
+
+    private void setCostomMsg(String msg){
+        if (null != msgText) {
+            msgText.setText(msg);
+            msgText.setVisibility(android.view.View.VISIBLE);
         }
     }
 
