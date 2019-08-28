@@ -55,9 +55,13 @@
         <activity android:name=".page.InsertBankCardSuccessActivity" />
         <activity android:name=".page.CommissionActivity" />
         <activity android:name=".page.IndexDetailsActivity" />
-        <activity android:name=".page.StartWeixiuActivity" />
+        <activity
+            android:name=".page.StartWeixiuActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity android:name=".page.OrderDetailsActivity" />
-        <activity android:name=".page.QianmingActivity"></activity>
+        <activity android:name=".page.QianmingActivity" />
+        <activity android:name=".page.PeitaoshebeiActivity" />
+        <activity android:name=".page.CommitActivity"></activity>
     </application>
 
 </manifest>

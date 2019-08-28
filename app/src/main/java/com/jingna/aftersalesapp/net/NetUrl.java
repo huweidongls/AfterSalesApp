@@ -38,4 +38,6 @@ public class NetUrl {
     public static final String AfterSaleOrdergetByOrderRepairId = "AfterSaleOrder/getByOrderRepairId";
     //根据订单ID查询具体数据
     public static final String AfterSaleOrdergetOneByOrderId = "AfterSaleOrder/getOneByOrderId";
+    //查询所有维修内容
+    public static final String AppAfterSaleContentqueryList = "AppAfterSaleContent/queryList";
 }
