@@ -1,5 +1,6 @@
 package com.jingna.aftersalesapp.page;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import com.jingna.aftersalesapp.base.BaseActivity;
 import com.jingna.aftersalesapp.net.NetUrl;
 import com.jingna.aftersalesapp.util.StatusBarUtils;
 import com.jingna.aftersalesapp.util.ToastUtil;
+import com.jingna.aftersalesapp.util.WeiboDialogUtils;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -37,6 +39,8 @@ public class ForgotPwd3Activity extends BaseActivity {
 
     private boolean isShowPwd = false;
     private String phoneNumber = "";
+
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +89,7 @@ public class ForgotPwd3Activity extends BaseActivity {
         }else if(pwd.length()<6||pwd.length()>20){
             ToastUtil.showShort(context, "密码长度为6-20位，请重新设置密码");
         }else {
+            dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
             ViseHttp.POST(NetUrl.EngineerUserretrievePassword)
                     .addParam("phone", phoneNumber)
                     .addParam("newPassword", pwd)
@@ -98,6 +103,7 @@ public class ForgotPwd3Activity extends BaseActivity {
                                     ToastUtil.showShort(context, "密码修改成功");
                                     finish();
                                 }
+                                WeiboDialogUtils.closeDialog(dialog);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -106,6 +112,7 @@ public class ForgotPwd3Activity extends BaseActivity {
                         @Override
                         public void onFail(int errCode, String errMsg) {
                             Log.e("123123", errMsg);
+                            WeiboDialogUtils.closeDialog(dialog);
                         }
                     });
         }

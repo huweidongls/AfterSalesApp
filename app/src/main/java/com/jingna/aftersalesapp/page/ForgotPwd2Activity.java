@@ -1,5 +1,6 @@
 package com.jingna.aftersalesapp.page;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.jingna.aftersalesapp.base.BaseActivity;
 import com.jingna.aftersalesapp.net.NetUrl;
 import com.jingna.aftersalesapp.util.StatusBarUtils;
 import com.jingna.aftersalesapp.util.ToastUtil;
+import com.jingna.aftersalesapp.util.WeiboDialogUtils;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -40,6 +42,8 @@ public class ForgotPwd2Activity extends BaseActivity {
     public TextView getCode_btn() {
         return tvGetCode;
     }
+
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +114,7 @@ public class ForgotPwd2Activity extends BaseActivity {
 
     private void next() {
 
+        dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
         String code = etCode.getText().toString();
         ViseHttp.GET(NetUrl.MemUsermatchCode)
                 .addParam("phone", phoneNum)
@@ -127,6 +132,7 @@ public class ForgotPwd2Activity extends BaseActivity {
                                 startActivity(intent);
                                 finish();
                             }
+                            WeiboDialogUtils.closeDialog(dialog);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -134,7 +140,7 @@ public class ForgotPwd2Activity extends BaseActivity {
 
                     @Override
                     public void onFail(int errCode, String errMsg) {
-
+                        WeiboDialogUtils.closeDialog(dialog);
                     }
                 });
 

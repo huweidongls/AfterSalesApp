@@ -1,5 +1,6 @@
 package com.jingna.aftersalesapp.page;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import com.jingna.aftersalesapp.util.Logger;
 import com.jingna.aftersalesapp.util.SpUtils;
 import com.jingna.aftersalesapp.util.StatusBarUtils;
 import com.jingna.aftersalesapp.util.ToastUtil;
+import com.jingna.aftersalesapp.util.WeiboDialogUtils;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -41,6 +43,8 @@ public class SMSLoginYzmActivity extends BaseActivity {
     public TextView getCode_btn() {
         return tvGetCode;
     }
+
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +90,7 @@ public class SMSLoginYzmActivity extends BaseActivity {
         if(TextUtils.isEmpty(code)){
             ToastUtil.showShort(context, "验证码不能为空");
         }else {
+            dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
             ViseHttp.GET(NetUrl.MemUserloginAPP)
                     .addParam("phoneNum", phoneNum)
                     .addParam("code", code)
@@ -106,6 +111,7 @@ public class SMSLoginYzmActivity extends BaseActivity {
                                 }else {
                                     ToastUtil.showShort(context, "验证码不正确");
                                 }
+                                WeiboDialogUtils.closeDialog(dialog);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -113,7 +119,7 @@ public class SMSLoginYzmActivity extends BaseActivity {
 
                         @Override
                         public void onFail(int errCode, String errMsg) {
-
+                            WeiboDialogUtils.closeDialog(dialog);
                         }
                     });
         }

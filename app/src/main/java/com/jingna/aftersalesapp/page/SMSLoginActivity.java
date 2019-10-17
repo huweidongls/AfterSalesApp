@@ -1,5 +1,6 @@
 package com.jingna.aftersalesapp.page;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.jingna.aftersalesapp.net.NetUrl;
 import com.jingna.aftersalesapp.util.StatusBarUtils;
 import com.jingna.aftersalesapp.util.StringUtils;
 import com.jingna.aftersalesapp.util.ToastUtil;
+import com.jingna.aftersalesapp.util.WeiboDialogUtils;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -30,6 +32,8 @@ public class SMSLoginActivity extends BaseActivity {
 
     @BindView(R.id.et_phonenum)
     EditText etPhoneNum;
+
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +79,7 @@ public class SMSLoginActivity extends BaseActivity {
         }else if(!StringUtils.isPhoneNumberValid(phoneNum)){
             ToastUtil.showShort(context, "请输入正确格式的手机号码");
         }else {
+            dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
             ViseHttp.GET(NetUrl.MemUsersendMessage)
                     .addParam("phone", phoneNum)
                     .request(new ACallback<String>() {
@@ -93,6 +98,7 @@ public class SMSLoginActivity extends BaseActivity {
                                 }else {
                                     ToastUtil.showShort(context, "验证码发送失败");
                                 }
+                                WeiboDialogUtils.closeDialog(dialog);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -100,7 +106,7 @@ public class SMSLoginActivity extends BaseActivity {
 
                         @Override
                         public void onFail(int errCode, String errMsg) {
-
+                            WeiboDialogUtils.closeDialog(dialog);
                         }
                     });
         }
