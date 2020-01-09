@@ -53,7 +53,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".page.MainActivity">
+        <activity android:name=".page.MainActivity"></activity>
+        <activity android:name=".page.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -104,7 +105,7 @@
         <activity android:name=".page.OrderDetailsActivity" />
         <activity android:name=".page.QianmingActivity" />
         <activity android:name=".page.PeitaoshebeiActivity" />
-        <activity android:name=".page.CommitActivity"/>
+        <activity android:name=".page.CommitActivity" />
 
         <!-- Required SDK 核心功能 -->
         <!-- 可配置 android:process 参数将 PushService 放在其他进程中 -->
@@ -260,6 +261,7 @@
             android:name="JPUSH_APPKEY"
             android:value="cbf38960db39d4c4cd999b96" />
 
+        <activity android:name=".page.IncomeDetailsActivity"></activity>
     </application>
 
 </manifest>

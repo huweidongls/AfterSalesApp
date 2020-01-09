@@ -18,6 +18,7 @@ import com.jingna.aftersalesapp.bean.GetOneBean;
 import com.jingna.aftersalesapp.net.NetUrl;
 import com.jingna.aftersalesapp.page.CommissionActivity;
 import com.jingna.aftersalesapp.page.ForgotPwd1Activity;
+import com.jingna.aftersalesapp.page.IncomeDetailsActivity;
 import com.jingna.aftersalesapp.page.MyBankCardActivity;
 import com.jingna.aftersalesapp.page.PersonInformationActivity;
 import com.jingna.aftersalesapp.page.SMSLoginActivity;
@@ -107,7 +108,7 @@ public class FragmentMy extends Fragment {
 
     }
 
-    @OnClick({R.id.ll_login, R.id.iv_avatar, R.id.tv_edit, R.id.rl1, R.id.rl2, R.id.rl3})
+    @OnClick({R.id.ll_login, R.id.iv_avatar, R.id.tv_edit, R.id.rl1, R.id.rl2, R.id.rl3, R.id.rl8})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -158,6 +159,15 @@ public class FragmentMy extends Fragment {
                     startActivity(intent);
                 } else {
                     intent.setClass(getContext(), CommissionActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.rl8:
+                if (userId.equals("0")) {
+                    intent.setClass(getContext(), SMSLoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getContext(), IncomeDetailsActivity.class);
                     startActivity(intent);
                 }
                 break;

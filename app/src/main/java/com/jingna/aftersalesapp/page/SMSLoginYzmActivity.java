@@ -2,6 +2,7 @@ package com.jingna.aftersalesapp.page;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -107,6 +108,9 @@ public class SMSLoginYzmActivity extends BaseActivity {
                                     SpUtils.setUserId(context, loginBean.getData().getUserId()+"");
                                     SpUtils.setToken(context, loginBean.getData().getToken());
                                     SpUtils.setPhoneNum(context, phoneNum);
+                                    Intent intent = new Intent();
+                                    intent.setClass(context, MainActivity.class);
+                                    startActivity(intent);
                                     finish();
                                 }else {
                                     ToastUtil.showShort(context, "验证码不正确");

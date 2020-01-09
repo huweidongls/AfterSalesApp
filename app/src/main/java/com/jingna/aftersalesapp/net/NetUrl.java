@@ -5,8 +5,9 @@ package com.jingna.aftersalesapp.net;
  */
 
 public class NetUrl {
-    public static final String BASE_URL = "http://39.98.188.171:8089/";//231 http://192.168.2.103:80/
-//    public static final String BASE_URL = "http://192.168.2.103:8080/";//231 http://192.168.2.231:80/
+    public static final String BASE_URL = "http://39.98.188.171:80/";
+//    public static final String BASE_URL = "http://192.168.2.103:8080/";
+//    public static final String BASE_URL = "http://192.168.2.36:80/";
     //发送验证码
     public static final String MemUsersendMessage = "EngineerUser/sendMessage";
     //登录
@@ -47,4 +48,6 @@ public class NetUrl {
     public static final String AfterSaleOrdergetByOrderInsert = "AfterSaleOrder/getByOrderInsert";
     //删除订单
     public static final String AfterSaleOrdertoDeleteRepairOrder = "AfterSaleOrder/toDeleteRepairOrder";
+    //收支明细
+    public static final String IncomeDetailsgetIncomeDetails = "/IncomeDetails/getIncomeDetails";
 }

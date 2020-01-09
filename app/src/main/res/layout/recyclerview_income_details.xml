@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:background="#33C4CDE1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+        <TextView
+            android:id="@+id/tv_year"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/bg_ffffff_13dp"
+            android:gravity="center"
+            android:paddingRight="17dp"
+            android:paddingLeft="17dp"
+            android:text="本年"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp" />
+
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_chu"
+                android:layout_gravity="end"
+                android:textColor="@color/white_ffffff"
+                android:textSize="13sp"
+                android:text="支出 ¥1000.00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_ru"
+                android:layout_gravity="end"
+                android:textColor="@color/white_ffffff"
+                android:textSize="13sp"
+                android:text="收入 ¥3000.00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.jingna.aftersalesapp.page;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -101,6 +102,9 @@ public class ForgotPwd3Activity extends BaseActivity {
                                 JSONObject jsonObject = new JSONObject(data);
                                 if(jsonObject.optString("status").equals("200")){
                                     ToastUtil.showShort(context, "密码修改成功");
+                                    Intent intent = new Intent();
+                                    intent.setClass(context, MainActivity.class);
+                                    startActivity(intent);
                                     finish();
                                 }
                                 WeiboDialogUtils.closeDialog(dialog);

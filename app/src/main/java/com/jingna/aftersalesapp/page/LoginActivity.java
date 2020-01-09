@@ -102,6 +102,9 @@ public class LoginActivity extends BaseActivity {
                                     SpUtils.setUserId(context, loginBean.getData().getUserId()+"");
                                     SpUtils.setToken(context, loginBean.getData().getToken());
                                     SpUtils.setPhoneNum(context, name);
+                                    Intent intent = new Intent();
+                                    intent.setClass(context, MainActivity.class);
+                                    startActivity(intent);
                                     finish();
                                 }else {
                                     ToastUtil.showShort(context, jsonObject.optString("errorMsg"));

@@ -2,6 +2,7 @@ package com.jingna.aftersalesapp.page;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -109,6 +110,9 @@ public class RegisterSetPwdActivity extends BaseActivity {
                                     SpUtils.setUserId(context, loginBean.getData().getUserId()+"");
                                     SpUtils.setToken(context, loginBean.getData().getToken());
                                     SpUtils.setPhoneNum(context, phoneNumber);
+                                    Intent intent = new Intent();
+                                    intent.setClass(context, MainActivity.class);
+                                    startActivity(intent);
                                     finish();
                                 }
                                 WeiboDialogUtils.closeDialog(dialog);
