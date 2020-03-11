@@ -151,7 +151,7 @@ public class CommissionActivity extends BaseActivity {
                     ToastUtil.showShort(CommissionActivity.this, "请选择提现银行卡");
                 }else {
                     ViseHttp.POST(NetUrl.AppEngineerCommissionAudittoUpdate)
-                            .addParam("memberId", SpUtils.getUserId(context))
+                            .addParam("engineerId", SpUtils.getUserId(context))
                             .addParam("auditMoney", msg)
                             .addParam("bankCardId", bankId)
                             .request(new ACallback<String>() {

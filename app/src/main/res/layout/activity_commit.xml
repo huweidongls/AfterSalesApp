@@ -184,7 +184,6 @@
                         android:textStyle="bold"
                         android:textSize="15sp"
                         android:textColor="@color/black_333333"
-                        android:text="¥100.00"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -212,7 +211,6 @@
                         android:textStyle="bold"
                         android:textSize="15sp"
                         android:textColor="@color/black_333333"
-                        android:text="¥150.00"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -241,7 +239,6 @@
                         android:textStyle="bold"
                         android:textSize="15sp"
                         android:textColor="@color/black_333333"
-                        android:text="¥50.00"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
