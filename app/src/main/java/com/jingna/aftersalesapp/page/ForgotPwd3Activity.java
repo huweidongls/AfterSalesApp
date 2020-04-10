@@ -103,7 +103,7 @@ public class ForgotPwd3Activity extends BaseActivity {
                                 if(jsonObject.optString("status").equals("200")){
                                     ToastUtil.showShort(context, "密码修改成功");
                                     Intent intent = new Intent();
-                                    intent.setClass(context, MainActivity.class);
+                                    intent.setClass(context, LoginActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }

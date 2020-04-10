@@ -7,7 +7,7 @@ package com.jingna.aftersalesapp.net;
 public class NetUrl {
     public static final String BASE_URL = "http://39.98.188.171:80/";
 //    public static final String BASE_URL = "http://wangwenlong.5ijiaoyu.cn/";
-//    public static final String BASE_URL = "http://192.168.2.103:8080/";
+//    public static final String BASE_URL = "http://192.168.1.102:80/";
 //    public static final String BASE_URL = "http://192.168.2.36:80/";
     //发送验证码
     public static final String MemUsersendMessage = "EngineerUser/sendMessage";
