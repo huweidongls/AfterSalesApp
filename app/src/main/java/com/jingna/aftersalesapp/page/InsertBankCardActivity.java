@@ -41,6 +41,8 @@ public class InsertBankCardActivity extends BaseActivity {
     EditText etPhonenum;
     @BindView(R.id.et_bank_name)
     EditText etBankName;
+    @BindView(R.id.et_name)
+    EditText etName;
 
     private String userId = "";
 
@@ -79,7 +81,8 @@ public class InsertBankCardActivity extends BaseActivity {
                     final String bankCard = etBankCard.getText().toString();
                     final String phoneNum = etPhonenum.getText().toString();
                     final String bankName = etBankName.getText().toString();
-                    if(StringUtils.isEmpty(bankCard)||StringUtils.isEmpty(phoneNum)||StringUtils.isEmpty(bankName)){
+                    final String name = etName.getText().toString();
+                    if(StringUtils.isEmpty(bankCard)||StringUtils.isEmpty(phoneNum)||StringUtils.isEmpty(bankName)||StringUtils.isEmpty(name)){
                         ToastUtil.showShort(context, "请完善信息后提交");
                     }else if(!StringUtils.isPhoneNumberValid(phoneNum)){
                         ToastUtil.showShort(context, "请输入正确格式的手机号码");
@@ -92,6 +95,7 @@ public class InsertBankCardActivity extends BaseActivity {
                                         .addParam("bankCardNum", bankCard)
                                         .addParam("cardType", bankName)
                                         .addParam("phone", phoneNum)
+                                        .addParam("bankName", name)
                                         .request(new ACallback<String>() {
                                             @Override
                                             public void onSuccess(String data) {

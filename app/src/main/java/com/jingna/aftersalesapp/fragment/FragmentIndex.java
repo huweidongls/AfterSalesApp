@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jingna.aftersalesapp.R;
@@ -17,6 +18,7 @@ import com.jingna.aftersalesapp.bean.IndexBean;
 import com.jingna.aftersalesapp.net.NetUrl;
 import com.jingna.aftersalesapp.page.StartWeixiuActivity;
 import com.jingna.aftersalesapp.util.StatusBarUtils;
+import com.jingna.aftersalesapp.util.ViseUtil;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -45,6 +47,8 @@ public class FragmentIndex extends Fragment {
     RecyclerView recyclerView;
     @BindView(R.id.refresh)
     SmartRefreshLayout smartRefreshLayout;
+    @BindView(R.id.tv)
+    TextView tv;
 
     private IndexAdapter adapter;
     private List<IndexBean.DataBean> mList;
@@ -77,6 +81,13 @@ public class FragmentIndex extends Fragment {
                                     if(jsonObject.optString("status").equals("200")){
                                         Gson gson = new Gson();
                                         IndexBean bean = gson.fromJson(data, IndexBean.class);
+                                        if(bean.getData().size()>0){
+                                            tv.setVisibility(View.GONE);
+                                            recyclerView.setVisibility(View.VISIBLE);
+                                        }else {
+                                            tv.setVisibility(View.VISIBLE);
+                                            recyclerView.setVisibility(View.GONE);
+                                        }
                                         mList.clear();
                                         mList.addAll(bean.getData());
                                         adapter.notifyDataSetChanged();
@@ -122,6 +133,13 @@ public class FragmentIndex extends Fragment {
                                 Gson gson = new Gson();
                                 IndexBean bean = gson.fromJson(data, IndexBean.class);
                                 mList = bean.getData();
+                                if(mList.size()==0){
+                                    tv.setVisibility(View.VISIBLE);
+                                    recyclerView.setVisibility(View.GONE);
+                                }else {
+                                    tv.setVisibility(View.GONE);
+                                    recyclerView.setVisibility(View.VISIBLE);
+                                }
                                 adapter = new IndexAdapter(mList);
                                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);

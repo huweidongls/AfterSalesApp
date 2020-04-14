@@ -26,7 +26,9 @@ import com.jingna.aftersalesapp.bean.BankCardListBean;
 import com.jingna.aftersalesapp.net.NetUrl;
 import com.jingna.aftersalesapp.util.SpUtils;
 import com.jingna.aftersalesapp.util.StatusBarUtils;
+import com.jingna.aftersalesapp.util.StringUtils;
 import com.jingna.aftersalesapp.util.ToastUtil;
+import com.jingna.aftersalesapp.util.ViseUtil;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -34,7 +36,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,7 +90,7 @@ public class CommissionActivity extends BaseActivity {
                             JSONObject jsonObject = new JSONObject(data);
                             if (jsonObject.optString("status").equals("200")) {
                                 allMoney = jsonObject.optDouble("data");
-                                tvMoney.setText("佣金余额¥" + allMoney + "，");
+                                tvMoney.setText("佣金余额¥" + StringUtils.roundByScale(allMoney, 2) + "，");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -150,29 +154,24 @@ public class CommissionActivity extends BaseActivity {
                 } else if(TextUtils.isEmpty(bankId)){
                     ToastUtil.showShort(CommissionActivity.this, "请选择提现银行卡");
                 }else {
-                    ViseHttp.POST(NetUrl.AppEngineerCommissionAudittoUpdate)
-                            .addParam("engineerId", SpUtils.getUserId(context))
-                            .addParam("auditMoney", msg)
-                            .addParam("bankCardId", bankId)
-                            .request(new ACallback<String>() {
-                                @Override
-                                public void onSuccess(String data) {
-                                    try {
-                                        JSONObject jsonObject = new JSONObject(data);
-                                        if(jsonObject.optString("status").equals("200")){
-                                            ToastUtil.showShort(context, "提现成功");
-                                            finish();
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-
-                                @Override
-                                public void onFail(int errCode, String errMsg) {
-
-                                }
-                            });
+                    double m = Double.valueOf(msg);
+                    if(m == 0.00){
+                        ToastUtil.showShort(context, "提现金额不能为0");
+                    }else if(m>allMoney){
+                        ToastUtil.showShort(context, "提现金额不能大于佣金余额");
+                    }else {
+                        Map<String, String> map = new LinkedHashMap<>();
+                        map.put("engineerId", SpUtils.getUserId(context));
+                        map.put("auditMoney", msg);
+                        map.put("bankCardId", bankId);
+                        ViseUtil.Post(context, NetUrl.AppEngineerCommissionAudittoUpdate, map, new ViseUtil.ViseListener() {
+                            @Override
+                            public void onReturn(String s) {
+                                ToastUtil.showShort(context, "提现成功");
+                                finish();
+                            }
+                        });
+                    }
                 }
                 break;
             case R.id.all:

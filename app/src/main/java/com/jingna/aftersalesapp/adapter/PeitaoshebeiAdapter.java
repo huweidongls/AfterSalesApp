@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jingna.aftersalesapp.R;
 import com.jingna.aftersalesapp.bean.PeitaoshebeiBean;
+import com.jingna.aftersalesapp.util.StringUtils;
 
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class PeitaoshebeiAdapter extends RecyclerView.Adapter<PeitaoshebeiAdapte
             Glide.with(context).load(R.mipmap.dh).into(holder.iv);
         }
         holder.tvName.setText(data.get(position).getName());
-        holder.tv.setText(data.get(position).getDayMoney()+"元/"+data.get(position).getCompany());
+        holder.tv.setText(StringUtils.roundByScale(data.get(position).getDayMoney(), 2)+"元/"+data.get(position).getCompany());
         holder.rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

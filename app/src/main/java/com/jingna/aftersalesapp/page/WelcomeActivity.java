@@ -39,7 +39,7 @@ public class WelcomeActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 100:
-                    if(num == 0){
+                    if(num <= 0){
                         toMain();
                     }else {
                         tv.setText("跳过 "+num);
@@ -65,8 +65,10 @@ public class WelcomeActivity extends AppCompatActivity {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                handler.sendEmptyMessage(100);
-                num = num - 1;
+                if(num>0){
+                    handler.sendEmptyMessage(100);
+                    num = num - 1;
+                }
             }
         };
         timer = new Timer();

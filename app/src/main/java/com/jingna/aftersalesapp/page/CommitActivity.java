@@ -14,6 +14,7 @@ import com.jingna.aftersalesapp.base.BaseActivity;
 import com.jingna.aftersalesapp.bean.PeitaoshebeiBean;
 import com.jingna.aftersalesapp.net.NetUrl;
 import com.jingna.aftersalesapp.util.StatusBarUtils;
+import com.jingna.aftersalesapp.util.StringUtils;
 import com.jingna.aftersalesapp.util.ToastUtil;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -109,11 +110,11 @@ public class CommitActivity extends BaseActivity {
                                 tvGongshi.setText("¥"+v);
                                 double pri = Double.valueOf(price);
                                 double jiao = Double.valueOf(jiaotong);
-                                int all = 0;
+                                double all = 0;
                                 for (int i = 0; i<mList.size(); i++){
                                     all = all+mList.get(i).getDayMoney()*mList.get(i).getNum();
                                 }
-                                tvAllPrice.setText("¥"+(v+pri+jiao+all));
+                                tvAllPrice.setText("¥"+ StringUtils.roundByScale((v+pri+jiao+all), 2));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

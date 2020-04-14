@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jingna.aftersalesapp.R;
@@ -45,6 +46,8 @@ public class FragmentOrder extends Fragment {
     RecyclerView recyclerView;
     @BindView(R.id.refresh)
     SmartRefreshLayout smartRefreshLayout;
+    @BindView(R.id.tv)
+    TextView tv;
 
     private OrderAdapter adapter;
     private List<OrderBean.DataBean> mList;
@@ -78,6 +81,13 @@ public class FragmentOrder extends Fragment {
                                     if(jsonObject.optString("status").equals("200")){
                                         Gson gson = new Gson();
                                         OrderBean bean = gson.fromJson(data, OrderBean.class);
+                                        if(bean.getData().size()>0){
+                                            tv.setVisibility(View.GONE);
+                                            recyclerView.setVisibility(View.VISIBLE);
+                                        }else {
+                                            tv.setVisibility(View.VISIBLE);
+                                            recyclerView.setVisibility(View.GONE);
+                                        }
                                         mList.clear();
                                         mList.addAll(bean.getData());
                                         adapter.notifyDataSetChanged();
@@ -118,6 +128,13 @@ public class FragmentOrder extends Fragment {
                                 Gson gson = new Gson();
                                 OrderBean bean = gson.fromJson(data, OrderBean.class);
                                 mList = bean.getData();
+                                if(mList.size()==0){
+                                    tv.setVisibility(View.VISIBLE);
+                                    recyclerView.setVisibility(View.GONE);
+                                }else {
+                                    tv.setVisibility(View.GONE);
+                                    recyclerView.setVisibility(View.VISIBLE);
+                                }
                                 adapter = new OrderAdapter(mList);
                                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.jingna.aftersalesapp.R;
 import com.jingna.aftersalesapp.bean.PeitaoshebeiBean;
+import com.jingna.aftersalesapp.util.StringUtils;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class CommitAdapter extends RecyclerView.Adapter<CommitAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tv1.setText(data.get(position).getName());
-        holder.tv2.setText(data.get(position).getDayMoney()+"元/"+data.get(position).getCompany());
+        holder.tv2.setText(StringUtils.roundByScale(data.get(position).getDayMoney(), 2)+"元/"+data.get(position).getCompany());
         holder.tv3.setText("X "+data.get(position).getNum());
     }
 

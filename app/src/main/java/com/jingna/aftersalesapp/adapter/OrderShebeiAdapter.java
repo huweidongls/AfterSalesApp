@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jingna.aftersalesapp.R;
 import com.jingna.aftersalesapp.bean.PeitaoshebeiBean;
+import com.jingna.aftersalesapp.util.StringUtils;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class OrderShebeiAdapter extends RecyclerView.Adapter<OrderShebeiAdapter.
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         holder.tvName.setText(data.get(position).getName());
-        holder.tv.setText(data.get(position).getDayMoney()+"元/"+data.get(position).getCompany());
+        holder.tv.setText(StringUtils.roundByScale(data.get(position).getDayMoney(), 2)+"元/"+data.get(position).getCompany());
         holder.tvNum.setText(data.get(position).getNum()+"");
 
         holder.rlJian.setOnClickListener(new View.OnClickListener() {
