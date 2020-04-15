@@ -55,9 +55,9 @@ public class GetOneBean {
         private String phoneNum;
         private String newTime;
         private String gender;
-        private int totalAmount;
-        private int withdrawableCash;
-        private int historicalCashWithdrawal;
+        private double totalAmount;
+        private double withdrawableCash;
+        private double historicalCashWithdrawal;
 
         public int getId() {
             return id;
@@ -131,27 +131,27 @@ public class GetOneBean {
             this.gender = gender;
         }
 
-        public int getTotalAmount() {
+        public double getTotalAmount() {
             return totalAmount;
         }
 
-        public void setTotalAmount(int totalAmount) {
+        public void setTotalAmount(double totalAmount) {
             this.totalAmount = totalAmount;
         }
 
-        public int getWithdrawableCash() {
+        public double getWithdrawableCash() {
             return withdrawableCash;
         }
 
-        public void setWithdrawableCash(int withdrawableCash) {
+        public void setWithdrawableCash(double withdrawableCash) {
             this.withdrawableCash = withdrawableCash;
         }
 
-        public int getHistoricalCashWithdrawal() {
+        public double getHistoricalCashWithdrawal() {
             return historicalCashWithdrawal;
         }
 
-        public void setHistoricalCashWithdrawal(int historicalCashWithdrawal) {
+        public void setHistoricalCashWithdrawal(double historicalCashWithdrawal) {
             this.historicalCashWithdrawal = historicalCashWithdrawal;
         }
     }

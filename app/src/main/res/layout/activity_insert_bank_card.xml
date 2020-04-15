@@ -49,6 +49,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:maxLength="19"
                 android:id="@+id/et_bank_card"
                 android:textSize="18sp"
                 android:textColor="@color/white_ffffff"

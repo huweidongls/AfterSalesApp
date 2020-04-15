@@ -25,6 +25,23 @@
             android:text="提佣金"
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_right"
+            android:layout_alignParentRight="true"
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:textSize="15sp"
+                android:textColor="@color/white_ffffff"
+                android:text="明细"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <LinearLayout

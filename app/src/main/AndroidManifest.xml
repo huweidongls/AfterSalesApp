@@ -53,7 +53,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".page.MainActivity"></activity>
+        <activity android:name=".page.MainActivity" />
         <activity android:name=".page.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -261,7 +261,8 @@
             android:name="JPUSH_APPKEY"
             android:value="cbf38960db39d4c4cd999b96" />
 
-        <activity android:name=".page.IncomeDetailsActivity"></activity>
+        <activity android:name=".page.IncomeDetailsActivity" />
+        <activity android:name=".page.CommissionDetailsActivity"></activity>
     </application>
 
 </manifest>

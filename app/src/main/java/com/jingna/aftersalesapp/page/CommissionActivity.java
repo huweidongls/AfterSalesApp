@@ -140,10 +140,14 @@ public class CommissionActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    @OnClick({R.id.rl_back, R.id.btn_mone, R.id.all, R.id.ll_bank})
+    @OnClick({R.id.rl_back, R.id.btn_mone, R.id.all, R.id.ll_bank, R.id.rl_right})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
+            case R.id.rl_right:
+                intent.setClass(context, CommissionDetailsActivity.class);
+                startActivity(intent);
+                break;
             case R.id.rl_back:
                 finish();
                 break;
